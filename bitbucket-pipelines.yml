@@ -1,0 +1,23 @@
+# This is a sample build configuration for Other.
+# Check our guides at https://confluence.atlassian.com/x/5Q4SMw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+# image: atlassian/default-image:latest
+
+pipelines:
+  branches:
+    develop:
+      - step:
+              script:
+                - apt-get install -y rsync
+                - mv .env-test .env
+                - rsync -rahvz --exclude-from='.rsyncignore' --delete-after $(pwd)/ root@37.139.27.120:/home/admin/web/$SITE/public_html
+                - ssh root@37.139.27.120 "cd /home/admin/web/$SITE/public_html; composer install; npm install; npm run dev; php artisan migrate; php artisan storage:link; chmod -R 777 storage"
+    master:
+      - step:
+              script:
+                - apt-get install -y rsync
+                - mv .env-prod .env
+                - rsync -rahvz --exclude-from='.rsyncignore' --delete-after $(pwd)/ root@185.69.154.215:/var/www/logobox3d.com
+                - ssh root@185.69.154.215 "cd /var/www/logobox3d.com; composer install; yarn install; npm run prod; php artisan migrate; php artisan storage:link; chmod -R 777 storage"

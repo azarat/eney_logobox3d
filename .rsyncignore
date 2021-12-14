@@ -1,0 +1,17 @@
+/node_modules
+/public/hot
+/public/storage
+/public/import
+/storage/*.key
+/storage/app/import/
+/storage/app/public/*
+/storage/framework/*
+/vendor
+/.idea
+/.vscode
+/.vagrant
+.git/
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log

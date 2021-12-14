@@ -1,0 +1,29 @@
+{
+  "btns": {
+    "activate": "Активировать",
+    "activated": "Активировано",
+    "done": "Готово",
+    "add_overlay": "Еще нанесение"
+  },
+  "evaluator": {
+    "title": "Расчет",
+    "edition": "Тираж"
+  },
+  "model": {
+    "title": "Модель"
+  },
+  "addition": {
+    "title": "Дополнительная информация"
+  },
+  "quantity": "Тираж",
+  "price_without_sale": "Цена без скидки",
+  "price_with_sale": "Цена со скидкой",
+  "changes_saved": "Изменения сохранены",
+  "technology": "Технология",
+  "area": "Площадь",
+  "color": "Цветов",
+  "file": "Файл",
+  "select_file": "Выберите файл",
+  "file_link": "Ссылка на файл",
+  "upload_file": "Загрузить файл"
+}

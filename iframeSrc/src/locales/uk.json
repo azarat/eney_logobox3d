@@ -1,0 +1,30 @@
+{
+    "btns": {
+        "activate": "Активувати",
+        "activated": "Активовано",
+        "done": "Готово",
+        "add_overlay": "Ще нанесення"
+    },
+    "evaluator": {
+        "title": "Розрахунок",
+        "edition": "Тираж"
+    },
+    "model": {
+        "title": "Модель"
+    },
+    "addition": {
+        "title": "Додаткова інформація"
+    },
+    "quantity": "Тираж",
+    "price_without_sale": "Ціна без знижки",
+    "price_with_sale": "Ціна зі знижкою",
+    "changes_saved": "Зміни збережені",
+    "technology": "Технологія",
+    "area": "Площа",
+    "color": "Кольорів",
+    "file": "Файл",
+    "select_file": "Оберіть файл",
+    "file_link": "Посилання на файл",
+    "upload_file": "Завантажити файл"
+}
+

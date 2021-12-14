@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+        app:
+                container_name: app
+                build:
+                        context: ./
+                        dockerfile: ./docker/app.docker
+                volumes:
+                        - ./:/var/www/html
+                        - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+                ports:
+                        - "8080:80"
+                networks:
+                        - default
+                environment:
+                        DB_HOST: db:3306
+        db:
+                container_name: db
+                build:
+                        context: ./
+                        dockerfile: ./docker/database.docker
+                volumes:
+                        - db_data:/var/lib/mysql
+                environment:
+                        MYSQL_ROOT_PASSWORD: secret
+                        MYSQL_DATABASE: project
+                ports:
+                        - "33061:3306"
+volumes:
+        db_data:
