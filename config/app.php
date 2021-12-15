@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://logobox3d.com'),
+    'url' => env('APP_URL', 'http://dev.eney.com.ua:8082/'),
 
     'visUrl' => env('VIS_URL', 'https://giftcollection.info'),
     'visToken' => env('VIS_TOKEN', 'qweqwe'),

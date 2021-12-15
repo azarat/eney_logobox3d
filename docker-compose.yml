@@ -10,11 +10,25 @@ services:
                         - ./:/var/www/html
                         - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
                 ports:
-                        - "8080:80"
+                        - "8082:80"
                 networks:
                         - default
                 environment:
                         DB_HOST: db:3306
+
+        adminer:
+                image: adminer
+                container_name: adminer
+                environment:
+                  ADMINER_DEFAULT_SERVER: db
+                restart: always
+                ports:
+                  - 8083:8080
+                links:
+                  - db
+                networks:
+                  - default
+
         db:
                 container_name: db
                 build:
@@ -27,5 +41,12 @@ services:
                         MYSQL_DATABASE: project
                 ports:
                         - "33061:3306"
+                networks:
+                  - default
+
 volumes:
         db_data:
+
+networks:
+  default:
+    driver: bridge
