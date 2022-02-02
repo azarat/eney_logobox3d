@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('./update');
 
 window.Vue = require('vue');
 
@@ -53,4 +54,3 @@ $('.js-product-row').on('click', function() {
 $('.js-category').on('change', function() {
     document.location.href = "product?category=" + $(this).val();
 });
-

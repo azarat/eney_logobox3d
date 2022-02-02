@@ -1,19 +1,19 @@
 <template>
-  <v-card>
-    <AdditionHeader></AdditionHeader>
+  <v-card class="mt-4">
+    <!-- <AdditionHeader></AdditionHeader> -->
     <AdditionBody></AdditionBody>
   </v-card>
 </template>
 
 <script>
-import AdditionHeader from './addition/AdditionHeader.vue';
+// import AdditionHeader from './addition/AdditionHeader.vue';
 import AdditionBody from './addition/AdditionBody.vue';
 
 export default {
   inject: ['theme'],
   name: 'Addition',
   components: {
-    AdditionHeader,
+    // AdditionHeader,
     AdditionBody,
   },
   computed: {},
@@ -22,5 +22,9 @@ export default {
 </script>
 
 <style scoped>
-
+.v-card {
+  box-shadow: none;
+  border: 1px solid #D2D6D9;
+  border-radius: 4px;
+}
 </style>

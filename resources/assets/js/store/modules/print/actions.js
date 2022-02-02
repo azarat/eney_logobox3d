@@ -28,6 +28,8 @@ export const httpAllPrints = ({ state, rootState }) => {
     sessionId,
   };
   state.prints.forEach((print, index) => {
+    console.log('print 1');
+    console.log(print);
     payload.prints.push({
       comment: null,
       // fileUrl: '',
@@ -36,13 +38,14 @@ export const httpAllPrints = ({ state, rootState }) => {
       // remoteFileUrl: '',
       selectedApplicationType: print.type.id,
       selectedArea: print.area.id,
+      selectedType: print.typesTech.id,
       selectedColor: print.colors,
       selectedCopy: 1,
     });
   });
   httpPost(`api/${siteId}/${sessionId}/prints`, payload).then((result) => {
     console.log(result);
-  });
+  }).catch(e => console.log(e));
 };
 
 export const submitFullForm = async ({ rootState, state, dispatch }) => {

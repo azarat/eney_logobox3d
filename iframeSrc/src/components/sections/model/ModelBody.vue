@@ -9,10 +9,10 @@
     <template v-else>
       <v-sheet
       >
-        <v-skeleton-loader
+        <!-- <v-skeleton-loader
           class="mx-auto"
           type="card"
-        ></v-skeleton-loader>
+        ></v-skeleton-loader> -->
       </v-sheet>
     </template>
   </div>

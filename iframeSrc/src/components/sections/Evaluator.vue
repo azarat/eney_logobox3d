@@ -1,20 +1,20 @@
 <template>
-  <v-card>
-    <EvaluatorHeader></EvaluatorHeader>
+  <v-card class="pb-4">
+    <!-- <EvaluatorHeader></EvaluatorHeader> -->
     <EvaluatorBody></EvaluatorBody>
   </v-card>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import EvaluatorHeader from './evaluator/EvaluatorHeader.vue';
+// import EvaluatorHeader from './evaluator/EvaluatorHeader.vue';
 import EvaluatorBody from './evaluator/EvaluatorBody.vue';
 
 export default {
   inject: ['theme'],
   name: 'Evaluator',
   components: {
-    EvaluatorHeader,
+    // EvaluatorHeader,
     EvaluatorBody,
   },
   computed: {
@@ -32,5 +32,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .v-card {
+    box-shadow: none;
+  }
 </style>

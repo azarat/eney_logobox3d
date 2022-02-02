@@ -3,7 +3,7 @@
     <template v-if="isAdditionActive">
       <v-container fluid>
         <v-row>
-            <v-col md="6" sm="6" cols="12">
+            <!-- <v-col md="6" sm="6" cols="12">
               <div class="d-flex align-center justify-center">
                 <v-radio-group v-model="additionalFilesType">
                   <v-radio
@@ -31,10 +31,12 @@
                   </template>
                 </v-file-input>
               </div>
-            </v-col>
+            </v-col> -->
+            <!-- <v-col md="6" sm="6" cols="12"> -->
             <v-col md="6" sm="6" cols="12">
+              <div class="font-weight-bold mb-2">{{$t('file_link')}}</div>
               <div class="d-flex align-center justify-center">
-                <v-radio-group v-model="additionalFilesType">
+                <v-radio-group v-model="additionalFilesType" class="hide-radio">
                   <v-radio
                     :label="$t('file_link')"
                     value="link"
@@ -44,6 +46,7 @@
                   outlined
                   class="c-input-add"
                   dense
+                  placeholder="Посилання на скачування макетів ( необов’язково )"
                   :disabled="additionalFilesType != 'link'"
                   v-model="linkUrl"></v-text-field>
               </div>
@@ -117,4 +120,7 @@ export default {
 </script>
 
 <style scoped>
+.hide-radio {
+  display: none;
+}
 </style>

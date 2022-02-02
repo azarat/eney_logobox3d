@@ -140,6 +140,50 @@ class ProductController extends Controller
             );
         }
 
+        $data['types'] = array();
+
+        foreach ($types as &$type) {
+            $types = DB::table('type')
+                        ->select('id')
+                        ->where('application_type_id', $type->id)
+                        ->get()
+                        ->toArray();
+
+            $_final = array();
+
+            foreach ($types as &$type) {
+                $type_translations = DB::table('type_translations')
+                                        ->where('type_id', $type->id)
+                                        ->where('locale', 'ru')
+                                        ->get()
+                                        ->toArray();
+
+                $translations = array();
+
+                foreach ($type_translations as $type_translation) {
+                    $translations[$type_translation->locale] = $type_translation->name;
+                }
+                $type_final[$type->id] = $translations;
+            }
+
+            $type_translations = DB::table('application_type_translations')
+                                    ->where('application_type_id', $type->id)
+                                    ->where('locale', 'ru')
+                                    ->get()
+                                    ->toArray();
+
+            $translations = array();
+
+            foreach ($type_translations as $type_translation) {
+                $translations[$type_translation->locale] = $type_translation->name;
+            }
+
+            $data['types'][$type->id] = array(
+                'types' => $type_final,
+                'translations' => $translations
+            );
+        }
+
         if (!empty($request->all())) {
             $data['query'] = '/?' . http_build_query($request->all());
         } else {
@@ -150,6 +194,12 @@ class ProductController extends Controller
         foreach (DB::table('product_to_area')->select('area_id')
                     ->where('product_id', $id)->get() as $row) {
             $data['checked'][] = $row->area_id;
+        }
+
+        $data['checked_type'] = array();
+        foreach (DB::table('product_to_type')->select('type_id')
+                    ->where('product_id', $id)->get() as $row) {
+            $data['checked_type'][] = $row->type_id;
         }
 
         $data['id'] = $id;
@@ -170,10 +220,21 @@ class ProductController extends Controller
             ->where('product_id', $product)
             ->delete();
 
+        DB::table('product_to_type')
+            ->where('product_id', $product)
+            ->delete();
+
         if ($request->post('area')) {
             foreach ($request->post('area') as $area_id => $area) {
                 DB::table('product_to_area')
                     ->insert(['product_id' => $product, 'area_id' => $area_id]);
+            }
+        }
+
+        if ($request->post('type')) {
+            foreach ($request->post('type') as $type_id => $type) {
+                DB::table('product_to_type')
+                    ->insert(['product_id' => $product, 'type_id' => $type_id]);
             }
         }
 

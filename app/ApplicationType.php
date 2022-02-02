@@ -18,4 +18,8 @@ final class ApplicationType extends EntityWithTranslations
     public function areas(){
         return $this->hasMany(Area::class);
     }
+
+    public function types(){
+        return $this->hasMany(Type::class);
+    }
 }

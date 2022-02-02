@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="mt-7">
     <ModelHeader></ModelHeader>
     <ModelBody></ModelBody>
   </v-card>
@@ -22,5 +22,9 @@ export default {
 </script>
 
 <style scoped>
-
+.v-card {
+  box-shadow: none;
+  border: 1px solid #D2D6D9;
+  border-radius: 4px;
+}
 </style>

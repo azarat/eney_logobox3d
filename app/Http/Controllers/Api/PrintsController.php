@@ -22,13 +22,14 @@ class PrintsController extends Controller
         $product = Product::where('model', $productModel)->first();
 
         $result['printings'] = $session->printings()
-            ->select('id', 'session_id', 'colors_qty', 'copies_qty', 'area_id', 'application_type_id', 'status', 'product_id')
+            ->select('id', 'session_id', 'colors_qty', 'copies_qty', 'area_id', 'type_id', 'application_type_id', 'status', 'product_id')
             ->where('status', 0)
             ->where('product_id', $product->id)
             ->get()
             ->transform(function($printing) use ($lang) {
                 $printing->application_name = $printing->applicationType()->first()->getTranslatedName($lang);
                 $printing->area_name = $printing->area()->first()->getTranslatedName($lang);
+                $printing->type_name = $printing->type()->first()->getTranslatedName($lang);
                 $printing->product_model = $printing->product()->first()->model;
                 unset($printing->product_id);
                 return $printing;
@@ -108,6 +109,7 @@ class PrintsController extends Controller
         $printing->colors_qty = $printData['selectedColor'];
         $printing->copies_qty = $printData['selectedCopy'];
         $printing->area_id = $printData['selectedArea'];
+        $printing->type_id = $printData['selectedType'];
         $printing->application_type_id = $printData['selectedApplicationType'];
         $printing->save();
 
@@ -120,6 +122,7 @@ class PrintsController extends Controller
         $printing->colors_qty = $printData['selectedColor'];
         $printing->copies_qty = $printData['selectedCopy'];
         $printing->area_id = $printData['selectedArea'];
+        $printing->type_id = $printData['selectedType'];
         $printing->application_type_id = $printData['selectedApplicationType'];
         $printing->save();
 

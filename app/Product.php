@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
  * @property int $model_id_2d
  * @property int $model_id_3d
  * @property Collection areas
+ * @property Collection types
  * @property ProductAreaPreset $preset
  **/
 class Product extends Model
@@ -28,9 +29,19 @@ class Product extends Model
         return $this->belongsToMany(Area::class, 'product_to_area');
     }
 
+    public function types()
+    {
+        return $this->belongsToMany(Type::class, 'product_to_type');
+    }
+
     public function hasArea(): bool
     {
         return $this->areas()->count() > 0;
+    }
+
+    public function hasType(): bool
+    {
+        return $this->types()->count() > 0;
     }
 
     public function preset()

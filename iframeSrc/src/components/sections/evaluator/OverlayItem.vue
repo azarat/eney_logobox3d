@@ -1,29 +1,24 @@
 <template>
-  <div>
-    <div class="header px-3">
-      <v-row dense>
-        <v-col cols="12" md="4">
-          <v-row dense>
-            <v-col cols="2" md="1">
-              <v-chip color="primary" label class="subtitle-1 font-weight-bold">
-                {{index+1}}
-              </v-chip>
-            </v-col>
-            <v-col cols="10" md="10">
-              <div class="d-flex pl-2 align-center">
-                <span class="text-uppercase px-4 font-weight-medium">{{$t('quantity')}}</span>
-                <v-text-field class="d-flex c-input"
-                              dense
-                              background-color="accent"
-                              outlined
-                              v-model="quantity"></v-text-field>
-              </div>
-            </v-col>
-          </v-row>
+  <div class="overlay-item mb-8">
+    <v-col cols="3" class="header py-4">
+        <div class="d-flex align-center">
+          <v-chip color="primary" label class="subtitle-1 font-weight-bold overlay-item--label">
+            Нанесення #{{index+1}}
+          </v-chip>
+        </div>
+        <v-col cols="12 mt-7">
+          <div class="">
+            <div class="text-uppercase pr-4">{{$t('quantity')}}:</div>
+            <v-text-field class="d-flex c-input"
+                          dense
+                          background-color="accent"
+                          outlined
+                          v-model="quantity"></v-text-field>
+          </div>
         </v-col>
-        <v-col cols="12" md="4">
-          <div class="d-flex pl-2 align-center justify-center height-100ps">
-            <span class="text-uppercase px-4 font-weight-medium">{{$t('price_without_sale')}}</span>
+        <v-col cols="12">
+          <div class="height-100ps">
+            <div class="text-uppercase pr-4">{{$t('price_without_sale')}}:</div>
             <v-text-field class="d-flex c-input"
                           dense
                           background-color="accent"
@@ -32,9 +27,9 @@
                           v-model="totalPrice"></v-text-field>
           </div>
         </v-col>
-        <v-col cols="12" md="4">
-          <div class="d-flex pl-2 align-center justify-center height-100ps">
-            <span class="text-uppercase px-4 font-weight-medium">{{$t('price_with_sale')}}</span>
+        <v-col cols="12">
+          <div class="height-100ps">
+            <div class="text-uppercase pr-4">{{$t('price_with_sale')}}</div>
             <v-text-field class="d-flex c-input"
                           dense
                           background-color="accent"
@@ -43,66 +38,98 @@
                           v-model="totalPriceWithDiscount"></v-text-field>
           </div>
         </v-col>
-      </v-row>
-    </div>
-    <div class="content evaluator py-2">
-      <div class="d-flex pl-2 align-center justify-center">
-        <span class="text-uppercase pr-5 font-weight-medium">{{ $t('technology') }}</span>
-        <v-chip-group
-          v-model="selectedTypeIndex"
-          column
-          mandatory
-        >
-          <v-chip
-            v-for="(type, index) in types"
-            label
-            large
-            :key="index"
-            class="px-1"
+    </v-col>
+    <v-col cols="9" class="content evaluator">
+      <v-col cols="12">
+        <div class="text-uppercase">{{ $t('technology') }}:</div>
+        <div class="d-flex align-center">
+          <v-chip-group
+            v-model="selectedTypeIndex"
+            column
+            mandatory
+            class="v-chip-medium-tpl"
           >
-            <v-img
-              :src="type.image"
-              max-width="50"
-              max-height="50"
+            <v-chip
+              v-for="(type, index) in types"
+              label
+              :key="index"
+              class="px-0"
             >
-            </v-img>
-            {{ getName(type) }}
-          </v-chip>
-        </v-chip-group>
-      </div>
-      <div class="d-flex pl-2 align-center justify-center">
-        <span class="text-uppercase pr-5 font-weight-medium">{{ $t('area') }}</span>
-        <v-chip-group
-          v-model="selectedAreaIndex"
-          column
-          mandatory
-        >
-          <v-chip
-            v-for="(area, index) in filteredAreas"
-            :key="index"
-            label
+              <v-img
+                :src="type.image"
+                max-height="40"
+                contain
+                class="mr-3"
+              >
+              </v-img>
+              {{ getName(type) }}
+            </v-chip>
+          </v-chip-group>
+        </div>
+      </v-col>
+      <v-col cols="12">
+        <div class="text-uppercase">ТИП:</div>
+        <div class="d-flex align-center">
+          <v-chip-group
+            v-model="selectedTypeTechIndex"
+            column
+            mandatory
+            class="v-chip-medium-tpl"
           >
-            <span class="font-weight-bold">{{ getName(area) }}</span>
-          </v-chip>
-        </v-chip-group>
-      </div>
-      <div class="d-flex pl-2 align-center justify-center">
-        <span class="text-uppercase pr-5 font-weight-medium">{{ $t('color') }}</span>
-        <v-chip-group
-          v-model="selectedColorsIndex"
-          column
-          mandatory
-        >
-          <v-chip
-            v-for="(color, index) in filteredColors"
-            :key="index"
-            label
+            <v-chip
+              v-for="(type, index) in filteredTypesTech"
+              :key="index"
+              label
+              outlined
+              class="justify-center"
+            >
+              {{ getName(type) }}
+            </v-chip>
+          </v-chip-group>
+        </div>
+      </v-col>
+      <v-col cols="12">
+        <div class="text-uppercase">{{ $t('area') }}:</div>
+        <div class="d-flex align-center">
+          <v-chip-group
+            v-model="selectedAreaIndex"
+            column
+            mandatory
+            class="v-chip-medium-tpl"
           >
-            {{color}}
-          </v-chip>
-        </v-chip-group>
-      </div>
-    </div>
+            <v-chip
+              v-for="(area, index) in filteredAreas"
+              :key="index"
+              label
+              outlined
+              class="justify-center"
+            >
+              {{ getName(area) }}
+            </v-chip>
+          </v-chip-group>
+        </div>
+      </v-col>
+      <v-col cols="12">
+        <div class="text-uppercase">{{ $t('color') }}:</div>
+        <div class="d-flex align-center">
+          <v-chip-group
+            v-model="selectedColorsIndex"
+            column
+            mandatory
+          >
+            <v-chip
+              v-for="(color, index) in filteredColors"
+              :key="index"
+              outlined
+              label
+              class="v-chip-squared-tpl justify-center"
+            >
+              {{color}}
+            </v-chip>
+          </v-chip-group>
+        </div>
+      </v-col>
+    </v-col>
   </div>
 </template>
 
@@ -114,6 +141,7 @@ export default {
   props: ['index'],
   data() {
     return {
+      selectedTypeTechIndex: 0,
       selectedTypeIndex: 0,
       selectedAreaIndex: 0,
       selectedColorsIndex: 0,
@@ -124,8 +152,11 @@ export default {
       discount: 'main/discount',
       lang: 'main/lang',
       areas: 'print/areas',
+      typesTech: 'print/typesTech',
       types: 'print/types',
       quantityOfItems: 'print/quantityOfItems',
+      printsCost: 'print/printsCost',
+      printsCostDiscount: 'print/printsCostDiscount',
     }),
     quantity: {
       get() {
@@ -137,6 +168,13 @@ export default {
           value,
         });
       },
+    },
+    filteredTypesTech() {
+      const codeOfSelectedType = this.types[this.selectedTypeIndex].code;
+      const result = this.typesTech.filter(item => item.code.indexOf(codeOfSelectedType) !== -1);
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.selectedTypeTechIndex = 0;
+      return result;
     },
     filteredAreas() {
       const codeOfSelectedType = this.types[this.selectedTypeIndex].code;
@@ -173,11 +211,47 @@ export default {
 
       const onePrinting = (preparePrice * (1 + kx * (n - 1)) / tirag
         + printPrice * (1 + kz * (n - 1)) + stickingPrice + roasingPrice).toFixed(2);
-      return parseFloat(onePrinting * tirag).toFixed(2);
+
+      const totalPriceVal = parseFloat(onePrinting * tirag).toFixed(2);
+
+      const printsCostArray = JSON.parse(JSON.stringify(this.printsCost));
+
+      const printsCostArraySumBefore = Object.values(printsCostArray)
+        .reduce((total, price) => parseFloat(total) + parseFloat(price));
+
+      printsCostArray[this.index] = totalPriceVal;
+
+      const printsCostArraySumAfter = Object.values(printsCostArray)
+        .reduce((total, price) => parseFloat(total) + parseFloat(price));
+
+      if (this.printsCost.length !== printsCostArray.length
+        || printsCostArraySumBefore !== printsCostArraySumAfter) {
+        this.setPrintsCost(printsCostArray);
+      }
+
+      return totalPriceVal;
     },
     totalPriceWithDiscount() {
       const discountSum = parseFloat(this.discount) * this.totalPrice / 100;
-      return parseFloat(this.totalPrice - discountSum).toFixed(2);
+
+      const totalPriceDiscountVal = parseFloat(this.totalPrice - discountSum).toFixed(2);
+
+      const printsCostDiscountArray = JSON.parse(JSON.stringify(this.printsCostDiscount));
+
+      const printsCostDiscountArraySumBefore = Object.values(printsCostDiscountArray)
+        .reduce((total, price) => parseFloat(total) + parseFloat(price));
+
+      printsCostDiscountArray[this.index] = totalPriceDiscountVal;
+
+      const printsCostDiscountArraySumAfter = Object.values(printsCostDiscountArray)
+        .reduce((total, price) => parseFloat(total) + parseFloat(price));
+
+      if (this.printsCostDiscount.length !== printsCostDiscountArray.length
+        || printsCostDiscountArraySumBefore !== printsCostDiscountArraySumAfter) {
+        this.setPrintsCostDiscount(printsCostDiscountArray);
+      }
+
+      return totalPriceDiscountVal;
     },
   },
   mounted() {
@@ -189,6 +263,10 @@ export default {
       index: this.index,
       value: this.areas[0],
     });
+    this.setTypeTechOfPrint({
+      index: this.index,
+      value: this.typesTech[0],
+    });
   },
   methods: {
     ...mapActions({
@@ -198,7 +276,10 @@ export default {
       setter: 'print/setter',
       setTypeOfPrint: 'print/setTypeOfPrint',
       setAreaOfPrint: 'print/setAreaOfPrint',
+      setTypeTechOfPrint: 'print/setTypeTechOfPrint',
       setColorsOfPrint: 'print/setColorsOfPrint',
+      setPrintsCost: 'print/setPrintsCost',
+      setPrintsCostDiscount: 'print/setPrintsCostDiscount',
     }),
     getName(item) {
       let currentLang = this.lang;
@@ -223,6 +304,12 @@ export default {
         value: this.filteredAreas[indexArea],
       });
     },
+    selectedTypeTechIndex(indexTypeTech) {
+      this.setTypeTechOfPrint({
+        index: this.index,
+        value: this.filteredTypesTech[indexTypeTech],
+      });
+    },
     selectedColorsIndex(indexColor) {
       this.setColorsOfPrint({
         index: this.index,
@@ -236,9 +323,35 @@ export default {
 <style scoped>
 .header {
   background: #eee;
+  border-right: 1px solid #D2D6D9;
 }
+.overlay-item {
+  display: flex;
+  border: 1px solid #D2D6D9;
+  border-radius: 4px;
+}
+.v-chip-medium-tpl .v-chip--label {
+  width: 200px;
+  height: 46px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.overlay-item--label {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  margin-left: -12px;
+}
+.v-chip.v-chip--outlined.v-chip.v-chip--active,
+.v-chip--active,
 .v-slide-item--active {
-  background: rgb(25, 72, 127);
+  background: #006EC7 !important;
   color: #fff !important;
+}
+.text-center {
+  text-align: center;
+}
+.v-chip-squared-tpl {
+  height: 46px !important;
+  width: 46px;
 }
 </style>

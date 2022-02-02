@@ -8,11 +8,15 @@ export default {
     colors: [],
     types: [],
     areas: [],
+    typesTech: [],
 
     quantityOfItems: 100,
     prints: [],
+    printsCost: [0],
+    printsCostDiscount: [0],
 
-    additionalFilesType: 'file',
+    additionalFilesType: 'link',
+    productData: null,
     linkUrl: '',
     fileData: [],
 

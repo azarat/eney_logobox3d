@@ -150,6 +150,7 @@ class CalcController extends Controller
                         'colors_qty',
                         'copies_qty',
                         'area_id',
+                        'type_id',
                         'area_code',
                         'application_type_id',
                         'application_type_code',

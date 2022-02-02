@@ -42,6 +42,9 @@
                                 <a class="nav-link active" href="{{ route('domain') }}"> Domains</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link active" href="{{ route('type') }}"> Types</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link active" href="{{ route('area') }}"> Areas</a>
                             </li>
                             <li class="nav-item">

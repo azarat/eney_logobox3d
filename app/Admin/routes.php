@@ -13,6 +13,7 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->resource('application-type', ApplicationTypeController::class);
     $router->resource('area', AreaController::class);
+    $router->resource('type', TypeController::class);
     $router->resource('product', ProductController::class);
     $router->resource('preset', AreaPresetsController::class);
 });

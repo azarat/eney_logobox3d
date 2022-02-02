@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="application-base">
     <v-content>
       <Printing/>
     </v-content>
@@ -19,3 +19,9 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+.application-base {
+  background: #ffffff !important;
+}
+</style>

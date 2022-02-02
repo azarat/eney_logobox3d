@@ -11,6 +11,11 @@ class Printing extends Model
         return $this->belongsTo('App\Area');
     }
 
+    public function type()
+    {
+        return $this->belongsTo('App\Type');
+    }
+
     public function applicationType()
     {
         return $this->belongsTo('App\ApplicationType');

@@ -30,6 +30,13 @@ Route::put('/domain/udpate/{id}', 'DomainController@update');
 Route::delete('/domain/delete/{id}', 'DomainController@delete');
 
 /**
+ * Type
+ */
+Route::get('/type', 'TypeController@index')->name('type');
+Route::get('/type/edit/{id}', 'TypeController@edit');
+Route::put('/type/udpate/{id}', 'TypeController@update');
+
+/**
  * Area
  */
 Route::get('/area', 'AreaController@index')->name('area');

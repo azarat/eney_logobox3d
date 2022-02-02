@@ -17,9 +17,9 @@ export default {
 
     // siteId: '', // for testing
     // product: '51K001C00', // for testing
-    isEvaluatorActive: false,
-    isModelActive: false,
-    isAdditionActive: false,
+    isEvaluatorActive: true,
+    isModelActive: true,
+    isAdditionActive: true,
   },
   mutations,
   getters,

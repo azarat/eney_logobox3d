@@ -18,3 +18,49 @@
 .checkbox-all {
     cursor: pointer;
 }
+
+.accordion {
+  &__chevron {
+    &--div,
+    &--type {
+      width: 20px;
+      display: inline-block;
+      position: relative;
+
+      svg {
+        width: 15px;
+        position: relative;
+        transition: all .35s ease;
+        transform: rotate(180deg);
+      }
+
+      &.active {
+        svg {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+  &__heading {
+    &--div,
+    &--type {
+      cursor: pointer;
+    }
+
+    &--div {
+      padding: 10px 0px;
+      border: 1px solid #ccc;
+      border-width: 1px 0px 1px 0px;
+      margin-bottom: 5px;
+    }
+  }
+  &__body {
+    &--div,
+    &--type {
+      display: none;
+
+      &.active {
+      }
+    }
+  }
+}

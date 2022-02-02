@@ -39,6 +39,10 @@ Route::get(
     'Api\AreaController@getByProductModel'
 );
 Route::get(
+    '{lang}/types/by-product/{productModel}',
+    'Api\TypeController@getByProductModel'
+);
+Route::get(
     '{lang}/application-types/by-product/{productModel}',
     'Api\ApplicationTypeController@getByProductModel'
 );

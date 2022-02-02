@@ -1,5 +1,30 @@
-import { httpDelete, httpGet, httpPost } from '../../../helpers/_api';
+import {
+  httpGet, httpPost, httpGetProduct,
+} from '../../../helpers/_api';
 
+export const loadProductData = ({ commit, rootState }) => {
+  const { productModel } = rootState.main;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const productSku = (urlParams.get('product_sku')) ? urlParams.get('product_sku') : productModel;
+
+  httpGetProduct('index.php?route=product/product/getProductData',
+    { productSku }, {}, 'http://dev.eney.com.ua:8081/', true)
+    .then((response) => {
+      commit('setProductData', response.data);
+    })
+    .catch((e) => {
+      console.log('CORS Error');
+      console.log(e);
+    });
+};
+export const loadTypesTech = ({ commit, rootState }) => {
+  const { lang, productModel } = rootState.main;
+  httpGet(`api/${lang}/types/by-product/${productModel}`)
+    .then((response) => {
+      commit('setTypesTech', response.data);
+    });
+};
 export const loadAreas = ({ commit, rootState }) => {
   const { lang, productModel } = rootState.main;
   httpGet(`api/${lang}/areas/by-product/${productModel}`)
@@ -28,16 +53,22 @@ export const loadPrints = ({ rootState }) => new Promise((resolve) => {
       // commit('setTypes', response.data);
     });
 });
-export const destroyPrint = ({ rootState }, id) => {
-  // eslint-disable-next-line radix
-  const printId = parseInt(id);
-  const { siteId, sessionId } = rootState.main;
-  httpDelete(`api/${siteId}/${sessionId}/prints/${printId}`, {})
-    .then(() => {});
-};
+export const destroyPrint = () => {};
+// export const destroyPrint = ({ rootState }, id) => {
+//   // eslint-disable-next-line radix
+//   const printId = parseInt(id);
+//   const { siteId, sessionId } = rootState.main;
+//   httpDelete(`api/${siteId}/${sessionId}/prints/${printId}`, {})
+//     .then(() => {});
+// };
 
 export const addPrint = ({ commit }) => {
   commit('pushPrint');
+};
+
+export const goBack = () => {
+  // document.location.href = document.location.origin + document.location.pathname;
+  window.history.back();
 };
 
 export const httpAllPrints = ({ commit, state, rootState }) => {
@@ -47,13 +78,21 @@ export const httpAllPrints = ({ commit, state, rootState }) => {
     productModel,
     sessionId,
   };
+
   state.prints.forEach((print, index) => {
+    console.log('print');
+    console.log(print);
     // item.selectedApplicationType = (print.type && print.type.id) ? print.type.id : 1;
     let areaId = 1;
+    let typeId = 1;
     let appTypeId = 1;
     // eslint-disable-next-line no-prototype-builtins
     if (print.hasOwnProperty('area') && print.area.hasOwnProperty('id')) {
       areaId = print.area.id;
+    }
+    // eslint-disable-next-line no-prototype-builtins
+    if (print.hasOwnProperty('typeTech') && print.typesTech.hasOwnProperty('id')) {
+      typeId = print.typesTech.id;
     }
     // eslint-disable-next-line no-prototype-builtins
     if (print.hasOwnProperty('type') && print.type.hasOwnProperty('id')) {
@@ -67,19 +106,30 @@ export const httpAllPrints = ({ commit, state, rootState }) => {
       // remoteFileUrl: '',
       selectedApplicationType: appTypeId,
       selectedArea: areaId,
+      selectedType: typeId,
       selectedColor: print.colors,
       selectedCopy: 1,
     });
   });
-  httpPost(`api/${siteId}/${sessionId}/prints`, payload).then(() => {
+
+  httpPost(`api/${siteId}/${sessionId}/prints`, payload).then((res) => {
+    console.log('payload');
+    console.log(payload);
+
+    console.log('res');
+    console.log(res.data);
+
     commit('main/setter', {
       prop: 'overlay',
       value: false,
     }, { root: true });
+
     commit('main/setter', {
       prop: 'dialog',
       value: true,
     }, { root: true });
+  }).catch((e) => {
+    console.error(e);
   });
 };
 
@@ -91,6 +141,7 @@ export const getPrintDataId = async ({ rootState }) => new Promise(async (resolv
 
 export const submitFullForm = async ({ rootState, state, dispatch }) => {
   const { siteId, sessionId, productModel } = rootState.main;
+
   // eslint-disable-next-line no-use-before-define
   const printDataId = await preparePrintDataId(rootState);
 
@@ -101,6 +152,7 @@ export const submitFullForm = async ({ rootState, state, dispatch }) => {
     printsDataId: printDataId,
     remoteFileUrl: state.linkUrl,
   };
+
   if (state.additionalFilesType === 'file') {
     const formData = new FormData();
     formData.append('file', state.fileData);
@@ -110,11 +162,15 @@ export const submitFullForm = async ({ rootState, state, dispatch }) => {
       payload.fileUrl = response.data;
     }).catch(() => {});
   }
+
+  console.log(payload);
+
   dispatch('httpAllPrints');
   httpPost(`api/${siteId}/${sessionId}/${productModel}/printsdata`, payload)
-    .then(() => {
-      // console.log(response);
-    }).catch(() => {});
+    .then((response) => {
+      console.log('response');
+      console.log(response);
+    }).catch(e => console.log(e));
 };
 
 function preparePrintDataId(rootState) {

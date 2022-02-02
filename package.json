@@ -32,6 +32,7 @@
         "vuex": "^3.0.1"
     },
     "dependencies": {
+        "vue-native-websocket": "^2.0.15",
         "vuejs-localization": "^1.0.3"
     }
 }
