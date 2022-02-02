@@ -138,7 +138,7 @@ export default {
     },
     quantity: {
       get() {
-        return this.quantityOfItems * this.prints.length;
+        return this.quantityOfItems;
       },
       set(value) {
         this.setter({
